@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import { GetServerSideProps } from "next"
-import { HomePropsData, MoviesData } from "@/components/types"
+import { HomePropsData } from "@/components/types"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -24,8 +24,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
                 genres: genres.genres
             }
         }
+
     } catch (error) {
         console.error('Error fetching data:', error);
+
         return {
             props: { topMovies: null, genres: null },
         }
@@ -35,7 +37,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Home = ({ topMovies, genres }: HomePropsData) => {
 
     const img_url = 'https://image.tmdb.org/t/p/original'
-    const filteredResults = topMovies.results.slice(0, 10)
+    const filteredResults = topMovies.slice(0, 10)
+
+    const genreIdConverter = (genreIds: number[]) => {
+        let transformedArray: string[] = []
+
+        genreIds.map(id => {
+            genres.map(genre => {
+                if (id == genre.id) {
+                    transformedArray.push(genre.name)
+                }
+            })
+        })
+
+        return transformedArray.join(', ')
+    }
 
     return (
         <main>
@@ -48,6 +64,7 @@ const Home = ({ topMovies, genres }: HomePropsData) => {
                         width={1000}
                         height={1000}
                         src={`${img_url}${filteredResults[0].backdrop_path}`}
+                        priority
                         alt="backdrop showcase" />
                 </div>
 
@@ -70,7 +87,13 @@ const Home = ({ topMovies, genres }: HomePropsData) => {
                     {
                         filteredResults && filteredResults.map((movie, i) => (
                             <div key={i}>
+                                <Image
+                                    width={250}
+                                    height={370}
+                                    src={`${img_url}${movie.poster_path}`}
+                                    alt="movie showcase" />
                                 <h3>{movie.title}</h3>
+                                <p>{genreIdConverter(movie.genre_ids)}</p>
                             </div>
                         ))
                     }

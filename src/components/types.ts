@@ -8,6 +8,7 @@ export interface MovieData {
     id: number,
     title: string,
     overview: string,
+    genre_ids: number[],
     original_title: string,
     backdrop_path: string,
     poster_path: string,
@@ -25,6 +26,6 @@ export interface GenreData {
 }
 
 export interface HomePropsData {
-    topMovies: MoviesData,
-    genres: GenresData
+    topMovies: MovieData[],
+    genres: GenreData[]
 }
