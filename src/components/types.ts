@@ -1,4 +1,3 @@
-import { execOnce } from "next/dist/shared/lib/utils"
 
 export interface MoviesData {
     page: 1,
@@ -8,6 +7,7 @@ export interface MoviesData {
 export interface MovieData {
     id: number,
     title: string,
+    overview: string,
     original_title: string,
     backdrop_path: string,
     poster_path: string,
