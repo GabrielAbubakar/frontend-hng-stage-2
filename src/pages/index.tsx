@@ -1,12 +1,12 @@
-
-
-
+import Navbar from "@/components/navbar"
 
 const Home = () => {
     return (
-        <>
-            <p>Stuff</p>
-        </>
+        <main>
+            <Navbar />
+
+
+        </main>
     )
 }
 
