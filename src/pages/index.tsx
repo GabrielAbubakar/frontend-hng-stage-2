@@ -1,24 +1,41 @@
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import { GetServerSideProps } from "next"
-import { MoviesData } from "@/components/types"
+import { HomePropsData, MoviesData } from "@/components/types"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const res = await fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=92acbcf971b9fdd0eff46dda90de9768')
-    const { results } = await res.json()
+    const fetchTopMovies = fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=92acbcf971b9fdd0eff46dda90de9768')
+    const fetchGenres = fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=92acbcf971b9fdd0eff46dda90de9768')
 
-    return {
-        props: {
-            results
+    try {
+        const [res1, res2] = await Promise.all([fetchTopMovies, fetchGenres])
+
+        if (!res1.ok || !res2.ok) {
+            throw new Error('Failed to fetch data from one or both endpoints')
+        }
+
+        const topMovies = await res1.json()
+        const genres = await res2.json()
+
+        return {
+            props: {
+                topMovies: topMovies.results,
+                genres: genres.genres
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return {
+            props: { topMovies: null, genres: null },
         }
     }
 }
 
-const Home = ({ results }: MoviesData) => {
+const Home = ({ topMovies, genres }: HomePropsData) => {
 
     const img_url = 'https://image.tmdb.org/t/p/original'
-    const filteredResults = results.slice(0, 10)
+    const filteredResults = topMovies.results.slice(0, 10)
 
     return (
         <main>
