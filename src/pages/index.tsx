@@ -5,7 +5,7 @@ import { HomePropsData } from "@/components/types"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const fetchTopMovies = fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=92acbcf971b9fdd0eff46dda90de9768')
+    const fetchTopMovies = fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=92acbcf971b9fdd0eff46dda90de9768')
     const fetchGenres = fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=92acbcf971b9fdd0eff46dda90de9768')
 
     try {
