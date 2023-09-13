@@ -5,8 +5,11 @@ import { HomePropsData } from "@/components/types"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const fetchTopMovies = fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=92acbcf971b9fdd0eff46dda90de9768')
-    const fetchGenres = fetch('https://api.themoviedb.org/3/genre/movie/list?api_key=92acbcf971b9fdd0eff46dda90de9768')
+
+    const API_KEY = process.env.TMDB_API_KEY;
+
+    const fetchTopMovies = fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`)
+    const fetchGenres = fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`)
 
     try {
         const [res1, res2] = await Promise.all([fetchTopMovies, fetchGenres])
@@ -51,6 +54,7 @@ const Home = ({ topMovies, genres }: HomePropsData) => {
         })
 
         return transformedArray.join(', ')
+        // A function that convert the genre id array of a movie into a string of the actual genre divided by ','.
     }
 
     return (
