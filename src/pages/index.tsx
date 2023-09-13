@@ -85,7 +85,7 @@ const Home = ({ topMovies, genres }: HomePropsData) => {
                                     src={`${img_url}${movie.poster_path}`}
                                     alt="movie showcase" />
                                 <h3>{movie.title}</h3>
-                                <p>{genreIdConverter(movie.genre_ids, genres, 'home')}</p>
+                                <p>{genreIdConverter(movie.genre_ids, genres)}</p>
                             </div>
                         ))
                     }

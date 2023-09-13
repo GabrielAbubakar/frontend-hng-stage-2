@@ -1,6 +1,6 @@
 import { GenreData } from "./types"
 
-const genreIdConverter = (genreIds: number[], genres: GenreData[], page: string) => {
+const genreIdConverter = (genreIds: number[], genres: GenreData[]) => {
     let transformedArray: string[] = []
 
     genreIds.map(id => {
@@ -11,12 +11,8 @@ const genreIdConverter = (genreIds: number[], genres: GenreData[], page: string)
         })
     })
 
-    if (page == 'home') {
-        return transformedArray.join(', ')
-    } else if (page == 'details') {
-        return transformedArray
-    }
-    // A function that convert the genre id array of a movie into a string of the actual genre divided by ','.
+    return transformedArray.join(', ')
+    // A function that convert the genre id array of a movie into a string of the actual genre divided by ',' or just return an array of all genre
 }
 
 export { genreIdConverter }

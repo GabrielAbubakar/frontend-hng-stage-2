@@ -16,6 +16,18 @@ export interface MovieData {
     release_date: string
 }
 
+export interface MovieDetailsData {
+    id: number,
+    title: string,
+    overview: string,
+    genres: GenreData[],
+    original_title: string,
+    backdrop_path: string,
+    poster_path: string,
+    vote_average: number,
+    release_date: string
+}
+
 export interface GenresData {
     genres: GenreData[]
 }
