@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    /* general font */
+    font-family: 'DM Sans', sans-serif;
+}
