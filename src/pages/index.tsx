@@ -1,7 +1,9 @@
+import { useState } from "react"
 import Image from "next/image"
 import Navbar from "@/components/navbar"
 import { GetServerSideProps } from "next"
 import { HomePropsData } from "@/components/types"
+import { genreIdConverter } from "@/components/utils"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -38,24 +40,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 }
 
 const Home = ({ topMovies, genres }: HomePropsData) => {
+    const [loading, setLoading] = useState<boolean>(false)
 
     const img_url = 'https://image.tmdb.org/t/p/original'
     const filteredResults = topMovies.slice(0, 10)
-
-    const genreIdConverter = (genreIds: number[]) => {
-        let transformedArray: string[] = []
-
-        genreIds.map(id => {
-            genres.map(genre => {
-                if (id == genre.id) {
-                    transformedArray.push(genre.name)
-                }
-            })
-        })
-
-        return transformedArray.join(', ')
-        // A function that convert the genre id array of a movie into a string of the actual genre divided by ','.
-    }
 
     return (
         <main>
@@ -97,7 +85,7 @@ const Home = ({ topMovies, genres }: HomePropsData) => {
                                     src={`${img_url}${movie.poster_path}`}
                                     alt="movie showcase" />
                                 <h3>{movie.title}</h3>
-                                <p>{genreIdConverter(movie.genre_ids)}</p>
+                                <p>{genreIdConverter(movie.genre_ids, genres, 'home')}</p>
                             </div>
                         ))
                     }
