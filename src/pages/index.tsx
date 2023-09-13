@@ -8,7 +8,7 @@ import { genreIdConverter } from "@/components/utils"
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
 
-    const API_KEY = process.env.TMDB_API_KEY;
+    const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
     const fetchTopMovies = fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`)
     const fetchGenres = fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`)
