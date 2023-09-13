@@ -39,5 +39,7 @@ export interface GenreData {
 
 export interface HomePropsData {
     topMovies: MovieData[],
-    genres: GenreData[]
+    genres: GenreData[],
+    popular: MovieData[],
+    random: number
 }
