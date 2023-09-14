@@ -3,11 +3,13 @@ import Image from "next/image"
 import Head from "next/head"
 import Navbar from "@/components/navbar"
 import { GetServerSideProps } from "next"
-import { HomePropsData } from "@/components/types"
-import { genreIdConverter } from "@/components/utils"
+import { HomePropsData, MovieData } from "@/components/types"
 import PlayIcon from '@/public/assets/play-icon.svg'
 import IMDBIcon from '@/public/assets/imdb-logo.svg'
 import TomatoesIcon from '@/public/assets/tomato-icon.svg'
+import ChevronRight from '@/public/assets/chevron-right-icon.svg'
+import Footer from "@/components/footer"
+import MovieCard from "@/components/MovieCard"
 
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -56,12 +58,23 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 const Home = ({ topMovies, genres, popular, random }: HomePropsData) => {
 
     const img_url = 'https://image.tmdb.org/t/p/original'
-    const filteredResults = topMovies.slice(0, 10)
+    const [filteredResults, setFilteredResults] = useState<MovieData[]>()
+
+    useEffect(() => {
+        if (topMovies) {
+            setFilteredResults(topMovies.slice(0, 10))
+        }
+    }, [topMovies])
+
+    // if (!topMovies || !genres || !popular) {
+    //     return <h1>Error fetching data</h1>
+    // }
 
     return (
         <>
             <Head>
                 <title>HNG Frontend Task 2</title>
+                <link rel="icon" href="/assets/movie-box-logo.svg" />
             </Head>
             <main>
                 <div
@@ -92,29 +105,27 @@ const Home = ({ topMovies, genres, popular, random }: HomePropsData) => {
                     </div>
                 </div>
 
-                <div>
-                    <div>
-                        <h2>Featured Movies</h2>
-                        <a href="#">See More</a>
+                <div className=" max-w-container-lg mx-auto pt-16">
+                    <div className="flex justify-between mb-16">
+                        <h2 className="text-black font-bold text-[2.5rem]">Featured Movies</h2>
+                        <a className="text-rose-700 flex gap-1 items-center hover:underline duration-300" href="#">
+                            See More
+                            <Image src={ChevronRight} alt="chevron right" />
+                        </a>
                     </div>
 
-                    <div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 justify-between gap-20">
                         {
                             filteredResults && filteredResults.map((movie, i) => (
-                                <div key={i}>
-                                    <Image
-                                        width={250}
-                                        height={370}
-                                        src={`${img_url}${movie.poster_path}`}
-                                        alt="movie showcase" />
-                                    <h3>{movie.title}</h3>
-                                    <p>{genreIdConverter(movie.genre_ids, genres)}</p>
-                                </div>
+                                <MovieCard key={i} movie={movie} genres={genres} />
                             ))
                         }
 
                     </div>
+
                 </div>
+
+                <Footer />
             </main >
         </>
     )

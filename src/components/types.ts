@@ -43,3 +43,8 @@ export interface HomePropsData {
     popular: MovieData[],
     random: number
 }
+
+export interface MovieCardProps {
+    movie: MovieData,
+    genres: GenreData[]
+}
