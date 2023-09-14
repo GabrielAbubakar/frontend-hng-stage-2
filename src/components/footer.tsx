@@ -8,25 +8,33 @@ const Footer = () => {
     return (
         <div className="flex flex-col gap-9 pt-40 pb-32 items-center">
             <ul className="flex gap-12">
-                <li className='cursor-pointer'>
-                    <Image src={FacebookIcon} alt='facebook' />
+                <li>
+                    <a href="https://www.facebook.com/" target='_blank'>
+                        <Image src={FacebookIcon} alt='facebook' />
+                    </a>
                 </li>
-                <li className='cursor-pointer'>
-                    <Image src={InstagramIcon} alt='instagram' />
+                <li>
+                    <a href="https://www.instagram.com/">
+                        <Image src={InstagramIcon} alt='instagram' />
+                    </a>
                 </li>
-                <li className='cursor-pointer'>
-                    <Image src={TwitterIcon} alt='twitter' />
+                <li>
+                    <a href="https://twitter.com/">
+                        <Image src={TwitterIcon} alt='twitter' />
+                    </a>
                 </li>
-                <li className='cursor-pointer'>
-                    <Image src={YoutubeIcon} alt='youtube' />
+                <li>
+                    <a href="https://youtube.com/">
+                        <Image className=' hover:fill-rose-800' src={YoutubeIcon} alt='youtube' />
+                    </a>
                 </li>
             </ul>
-            <ul className="flex gap-12 text-lg font-bold ">
-                <li className='cursor-pointer'>Conditions of Use</li>
-                <li className='cursor-pointer'>Privacy & Policy</li>
-                <li className='cursor-pointer'>Press Room</li>
+            <ul className="flex flex-col lg:flex-row text-center lg:text-left gap-12 text-lg font-bold text-gray-900">
+                <li className='cursor-pointer hover:text-rose-700 duration-300'>Conditions of Use</li>
+                <li className='cursor-pointer hover:text-rose-700 duration-300'>Privacy & Policy</li>
+                <li className='cursor-pointer hover:text-rose-700 duration-300'>Press Room</li>
             </ul>
-            <p>&copy; MovieBox: Developed with 💖 by Gabriel Abubakar</p>
+            <p className='text-center lg:text-left font-bold text-lg leading-normal text-gray-500'>&copy; 2023 MovieBox: Developed with 💖 by Gabriel Abubakar</p>
         </div>
     )
 }

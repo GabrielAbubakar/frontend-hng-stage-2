@@ -83,8 +83,8 @@ const Home = ({ topMovies, genres, popular, random }: HomePropsData) => {
 
                     <Navbar />
 
-                    <div className="max-w-container-lg mx-auto">
-                        <div className="w-[40%] flex flex-col gap-4 mt-28">
+                    <div className="max-w-container-lg mx-auto px-6 xl:px-0">
+                        <div className="w-[80%] lg:w-[40%] flex flex-col gap-4 mt-28">
                             <h1 className=" text-[3rem] font-bold">{popular[random].title}</h1>
                             <div className="flex gap-12">
                                 <div className="flex gap-3">
@@ -105,10 +105,10 @@ const Home = ({ topMovies, genres, popular, random }: HomePropsData) => {
                     </div>
                 </div>
 
-                <div className=" max-w-container-lg mx-auto pt-16">
+                <div className="max-w-container-lg mx-auto pt-16 px-6 xl:px-0">
                     <div className="flex justify-between mb-16">
-                        <h2 className="text-black font-bold text-[2.5rem]">Featured Movies</h2>
-                        <a className="text-rose-700 flex gap-1 items-center hover:underline duration-300" href="#">
+                        <h2 className="text-black font-bold text-2xl lg:text-[2.5rem]">Featured Movies</h2>
+                        <a className="text-rose-700 flex gap-1 items-center hover:underline duration-300 ease-linear hover:font-bold" href="#">
                             See More
                             <Image src={ChevronRight} alt="chevron right" />
                         </a>
