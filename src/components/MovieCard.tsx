@@ -14,19 +14,20 @@ const MovieCard = ({ movie, genres }: MovieCardProps) => {
 
 
     return (
-        <Link href={`/movies/${movie.id}`} className=' hover:scale-105 duration-300'>
+        <Link data-testid='movie-card' href={`/movies/${movie.id}`} className=' hover:scale-105 duration-300'>
             <div className='text-gray-900'>
                 <Image
+                    data-testid='movie-poster'
                     className=' w-full h-auto mb-2'
                     width={250}
                     height={370}
                     src={`${img_url}${movie.poster_path}`}
                     alt="movie showcase" />
                 <div className="flex flex-col gap-2">
-                    <p className=" text-gray-400 leading-normal">
+                    <p data-testid='movie-release-date' className=" text-gray-400 leading-normal">
                         {movie.release_date}
                     </p>
-                    <h3 className="font-bold text-lg leading-normal">
+                    <h3 data-testid='movie-title' className="font-bold text-lg leading-normal">
                         {movie.title}
                     </h3>
                     <div className="flex gap-12 justify-between">

@@ -17,11 +17,18 @@ const Movie = () => {
 
     const img_url = 'https://image.tmdb.org/t/p/original'
 
-    const dateConverter = (str: string) => {
-        let newArr = str.split('-')
+    // const dateConverter = (str: string) => {
+    //     let newArr = str.split('-')
+    //     return newArr[0]
+    // }
 
-        return newArr[0]
-    }
+    const dateConverter = (d: string) => {
+        const date = new Date(d);
+        const utc = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1)
+            .toString()
+            .padStart(2, "0")}-${date.getUTCDate().toString().padStart(2, "0")}`;
+        return utc;
+    };
 
     useEffect(() => {
 
@@ -69,9 +76,10 @@ const Movie = () => {
                         </div>
                         <div className=" flex justify-between mb-5">
                             <div className="flex gap-8 text-2xl font-medium flex-wrap">
-                                <p>{movieDetails?.title}</p>
-                                <p>{dateConverter(movieDetails?.release_date)}</p>
-                                <p>{movieDetails?.runtime} min</p>
+                                <p data-testid='movie-title'>{movieDetails?.title}</p>
+                                <p data-testid='movie-release-date'>{dateConverter(movieDetails?.release_date)}</p>
+                                {/* <p data-testid='movie-release-date'>{dateConverter(movieDetails?.release_date)}</p> */}
+                                <p data-testid='movie-runtime'>{movieDetails?.runtime} min</p>
                                 <div className="flex gap-4 text-rose-700 text-sm">
                                     {
                                         movieDetails?.genres.map((genre, i) => (
@@ -85,9 +93,9 @@ const Movie = () => {
                                 <p>{movieDetails.vote_average}</p>
                             </div>
                         </div>
-                        <div className="flex">
+                        <div className="flex gap-10">
                             <div className="text-xl flex flex-col gap-5 flex-[1]">
-                                <p>{movieDetails?.overview}</p>
+                                <p data-testid='movie-overview'>{movieDetails?.overview}</p>
                                 <p>Director: <span className=" text-rose-700">Joseph Krasinski</span></p>
                                 <p>Writers : <span className=" text-rose-700">Jim Cash, Jack Epps Jr, Peter Craig</span></p>
                                 <p>Stars : <span className=" text-rose-700">Tom Cruise, Jennifer Connelly, Miles Teller</span></p>
