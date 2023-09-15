@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import MovieBoxLogo from '@/public/assets/movie-box-logo.svg'
 import HamburgerIcon from '@/public/assets/hamburger-icon.svg'
+import Link from "next/link"
 
 const Navbar = () => {
     const router = useRouter()
@@ -25,7 +26,9 @@ const Navbar = () => {
         <nav className="max-w-container-lg mx-auto px-6 lg:px-0 gap-8 md:gap-0 flex justify-between items-center py-5">
             <div className="flex items-center gap-5 flex-1">
                 <Image src={MovieBoxLogo} alt="movie box" />
-                <p className="font-bold text-lg md:text-2xl">MovieBox</p>
+                <Link href='/'>
+                    <p className="font-bold text-lg md:text-2xl">MovieBox</p>
+                </Link>
             </div>
             <form
                 className="flex-1 flex justify-stretch"
