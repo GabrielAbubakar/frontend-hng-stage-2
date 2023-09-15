@@ -114,7 +114,7 @@ const Home = ({ topMovies, genres, popular, random }: HomePropsData) => {
                         </a>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 justify-between gap-20">
+                    <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4 justify-between gap-16">
                         {
                             filteredResults && filteredResults.map((movie, i) => (
                                 <MovieCard key={i} movie={movie} genres={genres} />
