@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { MovieCardProps } from './types'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,10 +13,24 @@ const MovieCard = ({ movie, genres }: MovieCardProps) => {
 
     const img_url = 'https://image.tmdb.org/t/p/original'
 
+    const [favorite, setFavorite] = useState(false)
+
+    function clickFav(e: any) {
+        e.stopPropagation()
+        setFavorite(!favorite)
+    }
+
 
     return (
         <Link data-testid='movie-card' href={`/movies/${movie.id}`} className=' hover:scale-105 duration-300'>
-            <div className='text-gray-900'>
+            <div className='text-gray-900 relative z-0'>
+                <button className='absolute top-4 right-4 z-10 scale-125 hover:scale-150 duration-300' onClick={clickFav}>
+                    {favorite ? (
+                        <Image src={FavoriteIcon} alt='favorite' />
+                    ) : (
+                        <Image src={FavoriteIcon} alt='favorite' />
+                    )}
+                </button>
                 <Image
                     data-testid='movie-poster'
                     className=' w-full h-auto mb-2'
