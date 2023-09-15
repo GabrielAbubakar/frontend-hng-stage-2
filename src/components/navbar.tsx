@@ -22,10 +22,10 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="max-w-container-lg mx-auto flex justify-between items-center py-5">
+        <nav className="max-w-container-lg mx-auto px-6 lg:px-0 gap-8 md:gap-0 flex justify-between items-center py-5">
             <div className="flex items-center gap-5 flex-1">
                 <Image src={MovieBoxLogo} alt="movie box" />
-                <p className="font-bold text-2xl">MovieBox</p>
+                <p className="font-bold text-lg md:text-2xl">MovieBox</p>
             </div>
             <form
                 className="flex-1 flex justify-stretch"
@@ -40,7 +40,7 @@ const Navbar = () => {
                 />
             </form>
             <div
-                className="flex gap-4 items-center flex-1 justify-end"
+                className="hidden sm:flex gap-4 items-center flex-1 justify-end"
             >
                 <p>Sign In</p>
                 <Image src={HamburgerIcon} alt="hamburger" />
