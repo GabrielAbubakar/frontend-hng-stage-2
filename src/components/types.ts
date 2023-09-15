@@ -13,7 +13,7 @@ export interface MovieData {
     backdrop_path: string,
     poster_path: string,
     vote_average: number,
-    release_date: string
+    release_date: string,
 }
 
 export interface MovieDetailsData {
@@ -26,6 +26,7 @@ export interface MovieDetailsData {
     poster_path: string,
     vote_average: number,
     release_date: string
+    runtime: number
 }
 
 export interface GenresData {

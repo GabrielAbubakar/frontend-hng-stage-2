@@ -1,16 +1,11 @@
-import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router"
 import { MovieDetailsData } from "@/components/types";
-import HomeIcon from '@/public/assets/home-icon.svg'
-import CalendarIcon from '@/public/assets/calendar-icon.svg'
 import ListIcon from '@/public/assets/list-icon.svg'
-import LogoutIcon from '@/public/assets/logout-icon.svg'
-import ProjectorIcon from '@/public/assets/projector-icon.svg'
-import ShowIcon from '@/public/assets/show-icon.svg'
 import TicketsIcon from '@/public/assets/tickets-icon.svg'
-import MovieBoxLogo from '@/public/assets/movie-box-logo.svg'
+import StarIcon from '@/public/assets/star-icon.svg'
+import Sidebar from "@/components/Sidebar";
 
 
 const Movie = () => {
@@ -21,6 +16,12 @@ const Movie = () => {
     const [loading, setLoading] = useState<boolean>(false)
 
     const img_url = 'https://image.tmdb.org/t/p/original'
+
+    const dateConverter = (str: string) => {
+        let newArr = str.split('-')
+
+        return newArr[0]
+    }
 
     useEffect(() => {
 
@@ -55,66 +56,61 @@ const Movie = () => {
 
     }, [id, API_KEY])
 
-    if (loading) {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
 
     return (
         <main className="relative min-h-screen">
-            <nav className="fixed py-12 border border-gray-400 h-full w-[35%] xl:w-[15%] rounded-r-[40px]">
-                <div className="flex items-center gap-5 flex-1 px-4 mb-12">
-                    <Image src={MovieBoxLogo} alt="movie box" />
-                    <h1 className="font-bold text-lg md:text-2xl">MovieBox</h1>
-                </div>
+            <Sidebar />
 
-                <ul className="font-bold text-gray-700 flex flex-col gap-3">
-                    <li className="w-full">
-                        <Link href='/' className="flex gap-4 items-center py-5 px-7 hover:bg-rose-100 duration-300 ">
-                            <Image src={HomeIcon} alt="home" />
-                            Home
-                        </Link>
-                    </li>
-                    <li className="w-full">
-                        <Link href='/' className="flex gap-4 items-center py-5 px-7 bg-rose-100 duration-300 border-r-4 border-rose-700">
-                            <Image src={ProjectorIcon} alt="projector" />
-                            Movies
-                        </Link>
-                    </li>
-                    <li className="w-full">
-                        <Link href='/' className="flex gap-4 items-center py-5 px-7 hover:bg-rose-100 duration-300 ">
-                            <Image src={ShowIcon} alt="tv show" />
-                            TV Series
-                        </Link>
-                    </li>
-                    <li className="w-full">
-                        <Link href='/' className="flex gap-4 items-center py-5 px-7 hover:bg-rose-100 duration-300 ">
-                            <Image src={CalendarIcon} alt="calendar" />
-                            Upcoming
-                        </Link>
-                    </li>
-                </ul>
+            {
+                movieDetails ? (
+                    <div className=" lg:ml-[15%] p-8 text-xl">
+                        <div style={{ backgroundImage: `url(${img_url + movieDetails?.backdrop_path}`, }}
+                            className="bg-cover bg-center min-h-[50vh] rounded-3xl mb-8">
+                        </div>
+                        <div className=" flex justify-between mb-5">
+                            <div className="flex gap-8 text-2xl font-medium flex-wrap">
+                                <p>{movieDetails?.title}</p>
+                                <p>{dateConverter(movieDetails?.release_date)}</p>
+                                <p>{movieDetails?.runtime} min</p>
+                                <div className="flex gap-4 text-rose-700 text-sm">
+                                    {
+                                        movieDetails?.genres.map((genre, i) => (
+                                            <p className="px-4 py-2 border border-rose-300 rounded-3xl" key={i}>{genre.name}</p>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                            <div className="flex gap-4 items-center">
+                                <Image src={StarIcon} alt="star" />
+                                <p>{movieDetails.vote_average}</p>
+                            </div>
+                        </div>
+                        <div className="flex">
+                            <div className="text-xl flex flex-col gap-5 flex-[1]">
+                                <p>{movieDetails?.overview}</p>
+                                <p>Director: <span className=" text-rose-700">Joseph Krasinski</span></p>
+                                <p>Writers : <span className=" text-rose-700">Jim Cash, Jack Epps Jr, Peter Craig</span></p>
+                                <p>Stars : <span className=" text-rose-700">Tom Cruise, Jennifer Connelly, Miles Teller</span></p>
+                            </div>
+                            <div className="flex-[.4] flex flex-col gap-5">
+                                <a href="#" className=" bg-rose-800 text-white py-3 flex justify-center gap-2 rounded-2xl">
+                                    <Image src={TicketsIcon} alt="tickets" />
+                                    See Showtimes
+                                </a>
+                                <a href="#" className=" bg-rose-100 py-3 flex justify-center gap-2 rounded-2xl">
+                                    <Image src={ListIcon} alt="list" />
+                                    More Watch Options
+                                </a>
+                                <div>
 
-                <div className="flex flex-col gap-3 mx-5 mt-8 px-5 py-10 rounded-3xl bg-rose-50 border border-rose-600">
-                    <p className="font-bold">Play movie quizes and earn free tickets</p>
-                    <p className=" text-xs">50k people are playing now</p>
-                    <p className=" self-center text-xs text-rose-700 font-medium text-center px-6 py-2 bg-rose-300 rounded-xl">Start Playing</p>
-                </div>
-                <p className="w-full">
-                    <Link href='/' className="flex gap-4 items-center py-5 px-7 hover:bg-rose-100 duration-300 ">
-                        <Image src={LogoutIcon} alt="exit" />
-                        Log out
-                    </Link>
-                </p>
-                <div>
-
-                </div>
-            </nav>
-
-            <div className="ml-[35%] xl:ml-[15%] ">
-                sdfsdfkjh
-            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    <h3 className="lg:ml-[15%] p-8 text-xl">Loading...</h3>
+                )
+            }
         </main>
     )
 }
