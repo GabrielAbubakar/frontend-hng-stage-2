@@ -6,6 +6,7 @@ import IMDBIcon from '@/public/assets/imdb-logo.svg'
 import TomatoesIcon from '@/public/assets/tomato-icon.svg'
 import { genreIdConverter } from "@/components/utils"
 import FavoriteIcon from '@/public/assets/favorite-icon.svg'
+import FavoriteActiveIcon from '@/public/assets/favorite-click-icon.svg'
 
 
 
@@ -15,8 +16,7 @@ const MovieCard = ({ movie, genres }: MovieCardProps) => {
 
     const [favorite, setFavorite] = useState(false)
 
-    function clickFav(e: any) {
-        e.stopPropagation()
+    function clickFav() {
         setFavorite(!favorite)
     }
 
@@ -24,11 +24,15 @@ const MovieCard = ({ movie, genres }: MovieCardProps) => {
     return (
         <Link data-testid='movie-card' href={`/movies/${movie.id}`} className=' hover:scale-105 duration-300'>
             <div className='text-gray-900 relative z-0'>
-                <button className='absolute top-4 right-4 z-10 scale-125 hover:scale-150 duration-300' onClick={clickFav}>
+                <button className='absolute top-4 right-4 z-10 scale-125 hover:scale-150 duration-300' onClick={(e => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    clickFav()
+                })}>
                     {favorite ? (
-                        <Image src={FavoriteIcon} alt='favorite' />
+                        <Image src={FavoriteActiveIcon} alt='favorite active' />
                     ) : (
-                        <Image src={FavoriteIcon} alt='favorite' />
+                        <Image src={FavoriteIcon} alt='favorite active' />
                     )}
                 </button>
                 <Image
